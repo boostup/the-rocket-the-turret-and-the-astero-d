@@ -5,9 +5,11 @@ function DraggableContainer(displayObj) {
   this.Container_constructor();
   this.addChild(this.objToDrag);
 
+  this.setupDragging();
+
+  this.regPointDisplay = null;
   this.debugLayer = null;
-  this.setDebugLayer();
-  this.setupDrag();
+  this.setDebug();
 }
 
 const DraggableContainer_prototype = extend(
@@ -17,7 +19,7 @@ const DraggableContainer_prototype = extend(
 );
 promote(DraggableContainer, "Container");
 
-DraggableContainer_prototype.setupDrag = function () {
+DraggableContainer_prototype.setupDragging = function () {
   this.on("pressmove", function (evt) {
     const bounds = this.objToDrag.getBounds();
     this.x = evt.stageX - bounds.width / 2;
@@ -33,6 +35,13 @@ DraggableContainer_prototype.setupDrag = function () {
 
 export default DraggableContainer;
 
+DraggableContainer_prototype.setDebug = function (debug = false) {
+  if (debug) {
+    this.setDebugLayer(true);
+    this.setRegPointVisibility(true);
+  }
+};
+
 DraggableContainer_prototype.setDebugLayer = function (show = false) {
   if (show) {
     this.debugLayer = new Shape();
@@ -43,5 +52,16 @@ DraggableContainer_prototype.setDebugLayer = function (show = false) {
       .drawRect(0, 0, bounds.width, bounds.height);
 
     this.addChild(this.debugLayer);
+  }
+};
+
+DraggableContainer_prototype.setRegPointVisibility = function (show = false) {
+  if (show) {
+    this.regPointDisplay = new Shape();
+    const bounds = this.objToDrag.getBounds();
+    this.debugLayer.graphics
+      .beginFill("red")
+      .drawCircle(bounds.width / 2, bounds.height / 2, 5);
+    this.addChild(this.regPointDisplay);
   }
 };
