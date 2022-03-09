@@ -11,31 +11,30 @@ const { Shape, extend, promote } = createjs;
 function Ship() {
   this.shape = null;
   this.setShape();
-
-  // this.setKeyboardCommands();
   this.Draggable_constructor(this.shape);
+  this.setKeyboardCommands();
 }
 
 const Ship_prototype = extend(Ship, Draggable);
 promote(Ship, "Draggable");
 
 Ship_prototype.setShape = function () {
-  const WIDTH = 25;
+  const WIDTH = 66;
+  const HEIGHT = 64;
   this.shape = new Shape();
-  this.shape.graphics.beginFill("red").drawCircle(0, 0, WIDTH);
-  this.shape.setBounds(WIDTH / 2, WIDTH / 2, WIDTH, WIDTH);
-  // const WIDTH = 66;
-  // const HEIGHT = 64;
-  // this.setBounds(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT);
-  // .beginFill("#000000")
-  // .lineTo(26, 0)
-  // .lineTo(40, 0)
-  // .lineTo(43, 35)
-  // .lineTo(64, 25)
-  // .lineTo(39, 62)
-  // .lineTo(25, 62)
-  // .lineTo(2, 24)
-  // .lineTo(20, 35);
+
+  this.shape.graphics
+    .beginFill("#000000")
+    .lineTo(26, 0)
+    .lineTo(40, 0)
+    .lineTo(43, 35)
+    .lineTo(64, 25)
+    .lineTo(39, 62)
+    .lineTo(25, 62)
+    .lineTo(2, 24)
+    .lineTo(20, 35);
+
+  this.shape.setBounds(0, 0, WIDTH, HEIGHT);
 };
 
 Ship_prototype.moveBy = function (propName, moveBy) {
