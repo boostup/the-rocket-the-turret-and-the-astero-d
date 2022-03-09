@@ -46,7 +46,7 @@ export default class App {
   }
 
   addShip() {
-    this.ship = new Ship();
+    this.ship = new Ship({ name: "ship" });
     this.shipBounds = this.ship.getBounds();
     this.addChildAtPoint(this.ship, {
       x: Math.random() * this.stage.canvas.width,
@@ -55,7 +55,7 @@ export default class App {
   }
 
   addTurret() {
-    this.turret = new Turret();
+    this.turret = new Turret({ name: "turret" });
     this.addChildAtCenter(this.turret);
   }
 

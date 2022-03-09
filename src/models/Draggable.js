@@ -1,6 +1,7 @@
 const { Container, Shape, extend, promote } = createjs;
 
-function DraggableContainer(displayObj) {
+function DraggableContainer(displayObj, name) {
+  this.objToDragName = name;
   this.objToDrag = displayObj;
   this.Container_constructor();
   this.addChild(this.objToDrag);
@@ -39,6 +40,7 @@ DraggableContainer_prototype.setDebug = function (debug = false) {
   if (debug) {
     this.setDebugLayer(true);
     this.setRegPointVisibility(true);
+    window[this.objToDragName] = this;
   }
 };
 

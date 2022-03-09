@@ -8,10 +8,10 @@ const VELOCITY_INCR = 5;
 
 const { Shape, extend, promote } = createjs;
 
-function Ship() {
+function Ship({ name }) {
   this.shape = null;
   this.setShape();
-  this.Draggable_constructor(this.shape);
+  this.Draggable_constructor(this.shape, name);
   this.setKeyboardCommands();
 }
 

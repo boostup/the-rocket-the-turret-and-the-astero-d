@@ -5,10 +5,10 @@ import Draggable, * as DraggableContainer from "./Draggable.js";
 /*********************************************************/
 const { Shape, extend, promote } = createjs;
 
-function Turret() {
+function Turret({ name }) {
   this.shape = null;
   this.setShape();
-  this.Draggable_constructor(this.shape);
+  this.Draggable_constructor(this.shape, name);
 }
 
 const Turret_prototype = extend(Turret, Draggable);
@@ -33,14 +33,8 @@ Turret_prototype.setShape = function () {
   this.shape.setBounds(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT);
 };
 
-Turret_prototype.trackEnemy = function (enemy) {
-  /**
-   * TICK TOCK
-   */
-  createjs.Ticker.on("tick", (e) => {
-    /** the heart of this object is pulsating right here */
-    self.stage.update(e);
-  });
+Turret_prototype.trackEnemy = function (enemyBounds) {
+  // console.log(enemyBounds);
 };
 
 export default Turret;
