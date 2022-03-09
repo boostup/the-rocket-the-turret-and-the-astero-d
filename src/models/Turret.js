@@ -1,24 +1,24 @@
+import Draggable, * as DraggableContainer from "./Draggable.js";
+
 /*********************************************************/
 // Class: Turret
 /*********************************************************/
-const { Container, Shape, extend, promote } = createjs;
-
-const WIDTH = 61;
-const HEIGHT = 55;
+const { Shape, extend, promote } = createjs;
 
 function Turret() {
-  this.Container_constructor();
   this.shape = null;
   this.setShape();
-  this.setBounds(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT);
-  this.addChild(this.shape);
+  this.Draggable_constructor(this.shape);
 }
 
-const p = extend(Turret, Container);
-window.Turret = promote(Turret, "Container");
+const Turret_prototype = extend(Turret, Draggable);
+promote(Turret, "Draggable");
 
-p.setShape = function () {
+Turret_prototype.setShape = function () {
+  const WIDTH = 61;
+  const HEIGHT = 55;
   this.shape = new Shape();
+
   this.shape.graphics
     .beginFill("#000000")
     .lineTo(26, 0)
@@ -29,9 +29,11 @@ p.setShape = function () {
     .lineTo(9, 52)
     .lineTo(2, 24)
     .lineTo(22, 21);
+
+  this.shape.setBounds(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT);
 };
 
-p.trackEnemy = function (enemy) {
+Turret_prototype.trackEnemy = function (enemy) {
   /**
    * TICK TOCK
    */
