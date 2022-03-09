@@ -1,6 +1,8 @@
 /*********************************************************/
 // Class: Turret
 /*********************************************************/
+const { Container, Shape, extend, promote } = createjs;
+
 const WIDTH = 61;
 const HEIGHT = 55;
 
@@ -12,11 +14,11 @@ function Turret() {
   this.addChild(this.shape);
 }
 
-const p = createjs.extend(Turret, createjs.Container);
-window.Turret = createjs.promote(Turret, "Container");
+const p = extend(Turret, Container);
+window.Turret = promote(Turret, "Container");
 
 p.setShape = function () {
-  this.shape = new createjs.Shape();
+  this.shape = new Shape();
   this.shape.graphics
     .beginFill("#000000")
     .lineTo(26, 0)
@@ -29,14 +31,14 @@ p.setShape = function () {
     .lineTo(22, 21);
 };
 
-// p.trackEnemy(enemy) = function () {
-//     /**
-//      * TICK TOCK
-//      */
-//      createjs.Ticker.on("tick", (e) => {
-//       /** the heart of this object is pulsating right here */
-//       self.stage.update(e);
-//     });
-// }
+p.trackEnemy = function (enemy) {
+  /**
+   * TICK TOCK
+   */
+  createjs.Ticker.on("tick", (e) => {
+    /** the heart of this object is pulsating right here */
+    self.stage.update(e);
+  });
+};
 
 export default Turret;
