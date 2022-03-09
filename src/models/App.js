@@ -8,6 +8,7 @@ export default class App {
     this.canvasId = canvasId;
     this.stage = null;
     this.ship = null;
+    this.shipBounds;
     this.turret = null;
     this.init();
   }
@@ -23,7 +24,7 @@ export default class App {
      * TICK TOCK
      */
     createjs.Ticker.on("tick", (e) => {
-      // this.turret.trackEnemy(this.ship);
+      this.turret.trackEnemy(this.shipBounds);
       this.detectTurretCollision();
 
       /** the heart of the app is pulsating right here */
@@ -31,10 +32,12 @@ export default class App {
     });
   }
 
-  followShip() {}
-
   detectTurretCollision() {
-    const pt = this.ship.localToLocal(0, 0, this.turret);
+    const pt = this.ship.localToLocal(
+      this.shipBounds.width / 2,
+      0,
+      this.turret
+    );
     this.turret.alpha = 0.2;
     if (this.turret.hitTest(pt.x, pt.y)) {
       this.turret.alpha = 1;
@@ -44,7 +47,8 @@ export default class App {
 
   addShip() {
     this.ship = new Ship();
-    this.addChildAt(this.ship, {
+    this.shipBounds = this.ship.getBounds();
+    this.addChildAtPoint(this.ship, {
       x: Math.random() * this.stage.canvas.width,
       y: Math.random() * this.stage.canvas.height,
     });
@@ -55,14 +59,14 @@ export default class App {
     this.addChildAtCenter(this.turret);
   }
 
-  addChildAt(child, pt) {
+  addChildAtPoint(child, pt) {
     this.stage.addChild(child);
     child.x = pt.x;
     child.y = pt.y;
   }
 
   addChildAtCenter(child) {
-    this.addChildAt(child, { x: this.stageCenterX, y: this.stageCenterY });
+    this.addChildAtPoint(child, { x: this.stageCenterX, y: this.stageCenterY });
   }
 
   setStageOriginToCenter() {
